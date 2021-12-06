@@ -101,54 +101,21 @@ video {
 }
 
 .weather-slide {
-  .active {
+  .active-slide {
     transform: scale(1.05);
     transition: all linear 0.2s;
     border: 1px solid #1976d2;
   }
-  .swiper-slide {
-    padding: 1rem 0;
-    width: 300px;
-    max-width: 300px;
-    @media (max-width: 760px) {
-      max-width: 90% !important;
-      width: 90% !important;
-    }
-  }
-  .swiper-wrapper {
-    max-width: 900px;
-  }
-  .swiper-button-prev,
-  .swiper-button-next {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #f1f1f1;
-    position: absolute;
-    &:after {
-      font-size: 1rem;
-      color: #000;
-      font-weight: 700;
-    }
-  }
-  .swiper-button-prev {
-    left: 0px;
-  }
-  .swiper-button-next {
-    right: 50px;
-    @media (max-width: 760px) {
-      right: 0;
-    }
-  }
-  .swiper-slide-active {
-    max-width: 300px !important;
-    width: 300px !important;
-    position: relative;
-    margin-left: 70px;
-    @media (max-width: 760px) {
-      margin-left: 15px;
-      max-width: 90% !important;
-      width: 90% !important;
+  button {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    line-height: 40px;
+    font-size: 1rem;
+    &:hover:enabled,
+    &:focus:enabled {
+      background-color: #1976d2;
     }
   }
 }

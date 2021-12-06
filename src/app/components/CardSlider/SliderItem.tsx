@@ -20,6 +20,8 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
   height: '200px',
+  border: '1px solid rgba(0, 0, 0, 0.1)',
+  margin: '10px',
 }));
 
 const SliderItem: React.FC<SliderItemProps> = ({
@@ -32,13 +34,12 @@ const SliderItem: React.FC<SliderItemProps> = ({
   index,
   active,
 }) => {
-  const className = classname('weather-slide-item', { active: active });
+  const className = classname('weather-slide-item', { "active-slide": active });
   return (
     <Item
       className={className}
       onClick={() => {
         onClick(index);
-        console.log('Clicked', index);
       }}
     >
       <Grid container spacing={2} rowSpacing={{ sm: 5 }}>

@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
-import Carousle from 'react-elastic-carousel';
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
-import SwiperCore, { Navigation } from 'swiper';
+import Carousel from 'react-elastic-carousel';
 
-// Import Swiper styles
-import 'swiper/swiper.min.css';
-import 'swiper/modules/navigation/navigation.min.css';
 import { WeatherInfo } from '../../typings';
+
 import SliderItem from './SliderItem';
+
 import { calculateAverageTemperature } from '../../utils/temperature';
 import storage from '../../utils/storage';
-
-SwiperCore.use([Navigation]);
 
 interface CardSliderProps {
   data: Array<WeatherInfo>;
@@ -21,45 +16,41 @@ interface CardSliderProps {
 }
 
 const CardSlider: React.FC<CardSliderProps> = ({ data, handleCardSelect, selectedCard }) => {
-  const [slidesPerView, setSlidesPerView] = useState(3);
   const storedUnit = storage.get('unit');
 
-  useEffect(() => {
-    if (window.innerWidth <= 760) setSlidesPerView(1);
-  }, []);
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+    { width: 768, itemsToShow: 3 },
+    { width: 1200, itemsToShow: 4 },
+  ];
 
   return (
     <Box sx={{ flexGrow: 1, pt: 4, pb: 4 }}>
-      <Swiper
-        slidesPerView={slidesPerView}
-        spaceBetween={20}
-        slidesPerGroup={1}
-        loop={false}
-        navigation={true}
-        observeParents={true}
-        observer={true}
-        observeSlideChildren={true}
+      <Carousel
+        breakPoints={breakPoints}
+        pagination={false}
+        showEmptySlots={false}
+        isRTL={false}
         className="weather-slide"
       >
         {data?.map((data, index) => {
           const temperature = calculateAverageTemperature(data);
           return (
-            <SwiperSlide>
-              <SliderItem
-                key={data.title}
-                title="Temperature"
-                date={data?.title}
-                temperature={temperature.toString()}
-                icon={data.data[0].weather[0].icon}
-                unit={storedUnit}
-                onClick={handleCardSelect}
-                index={index}
-                active={selectedCard === index}
-              />
-            </SwiperSlide>
+            <SliderItem
+              key={data.title}
+              title="Temperature"
+              date={data?.title}
+              temperature={temperature.toString()}
+              icon={data.data[0].weather[0].icon}
+              unit={storedUnit}
+              onClick={handleCardSelect}
+              index={index}
+              active={selectedCard === index}
+            />
           );
         })}
-      </Swiper>
+      </Carousel>
     </Box>
   );
 };
