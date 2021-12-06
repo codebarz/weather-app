@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Grid, Button, Container } from '@mui/material';
+import { Box, Grid, Button, Container, Typography } from '@mui/material';
 import toast from 'react-hot-toast';
 import groupBy from 'lodash.groupby';
 import dayjs from 'dayjs';
@@ -15,6 +15,7 @@ import useGetWeatherInfo from '../hooks/useGetWeatherInfo';
 
 import { monthName } from '../utils/date';
 import storage from '../utils/storage';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 const Home: React.FC = () => {
   const [temperatureUnit, setTemperatureUnit] = useState<string>(TemperatureUnits.Celcius);
@@ -23,7 +24,7 @@ const Home: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<number>();
   const [barChartWeatherInfo, SetBarChartWeatherInfo] = useState<Array<BarChartData>>();
 
-  const { data, isLoading, isError, isFetching, refetch } = useGetWeatherInfo(
+  const { data, isLoading, isFetching, refetch } = useGetWeatherInfo(
     userCoordinates,
     temperatureUnit,
   );
@@ -77,7 +78,9 @@ const Home: React.FC = () => {
     }
   }, [data, isLoading]);
 
-  return (
+  return !data || isFetching ? (
+    <LoadingIndicator />
+  ) : (
     <>
       <Layout>
         <Box sx={{ flexGrow: 1 }}>
@@ -105,6 +108,9 @@ const Home: React.FC = () => {
             </Grid>
           </Grid>
         </Box>
+        <Typography variant="h5" className="country-name">
+          {data?.city?.name}, {data?.city?.country}
+        </Typography>
       </Layout>
       <Container maxWidth="lg">
         <CardSlider

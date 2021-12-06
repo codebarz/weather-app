@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from './ErrorBoundary';
 import routes from './routes';
+import LoadingIndicator from './app/components/LoadingIndicator';
 
 const queryClient = new QueryClient();
 
@@ -10,7 +11,7 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
-        <Suspense fallback="Loading...">
+        <Suspense fallback={LoadingIndicator}>
           <Router>
             <Routes>
               {routes?.map(({ path, component: Component }) => (
