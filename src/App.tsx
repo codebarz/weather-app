@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from './ErrorBoundary';
 import routes from './routes';
 import LoadingIndicator from './app/components/LoadingIndicator';
+import NotFound from './app/components/NotFound';
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,7 @@ const App: React.FC = () => {
               {routes?.map(({ path, component: Component }) => (
                 <Route key={path} path={path} element={<Component />} />
               ))}
-              <Route path="*" element={<p>Not Found</p>} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>
         </Suspense>
