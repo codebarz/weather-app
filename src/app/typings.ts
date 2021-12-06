@@ -43,17 +43,12 @@ export interface WeatherData {
   dt_txt: string;
 }
 
-export interface IJsonResponse<T> {
-  data: T;
-  status: number;
-}
-
 export interface Coordinates {
   lat: number;
   lon: number;
 }
 
-export interface ICity {
+export interface City {
   id: number;
   name: string;
   coord: Coordinates;
@@ -65,7 +60,7 @@ export interface ICity {
 }
 
 export interface WeatherResponse {
-  city: ICity;
+  city: City;
   list: Array<WeatherData>;
 }
 

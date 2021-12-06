@@ -25,6 +25,7 @@ export const TemperatureUnitForm: React.FC<TemperatureUnitFormProps> = ({
         name="temperature-unit-button-group"
         value={value}
         onChange={handleChange}
+        data-testid="temperature-options"
       >
         {options.map((option) => (
           <FormControlLabel
@@ -33,6 +34,7 @@ export const TemperatureUnitForm: React.FC<TemperatureUnitFormProps> = ({
             control={<Radio />}
             label={option.label}
             className="radio-button"
+            data-testid={`${option.label.toLowerCase()}-temp-option`}
           />
         ))}
       </RadioGroup>

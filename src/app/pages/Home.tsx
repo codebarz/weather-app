@@ -79,10 +79,10 @@ const Home: React.FC = () => {
   }, [data, isLoading]);
 
   return !data || isFetching ? (
-    <LoadingIndicator />
+    <LoadingIndicator data-testid="loading-indicator" />
   ) : (
     <>
-      <Layout>
+      <Layout data-testid="page-layout">
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} alignItems="center">
             <Grid item md={9} sm={9} justifyContent="center">

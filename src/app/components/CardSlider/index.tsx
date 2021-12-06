@@ -26,7 +26,7 @@ const CardSlider: React.FC<CardSliderProps> = ({ data, handleCardSelect, selecte
   ];
 
   return (
-    <Box sx={{ flexGrow: 1, pt: 4, pb: 4 }}>
+    <Box sx={{ flexGrow: 1, pt: 4, pb: 4 }} data-testid="weather-card-slider">
       <Carousel
         breakPoints={breakPoints}
         pagination={false}
