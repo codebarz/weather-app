@@ -3,7 +3,8 @@ import toast from 'react-hot-toast';
 
 const request = axios.create({
   baseURL: process.env.REACT_APP_WEATHER_API,
-  params: { APPID: process.env.REACT_APP_WEATHER_API_KEY },
+  //This is so app can be easily run. Credentials would obly be in environemnt variables for prod level apps
+  params: { APPID: process.env.REACT_APP_WEATHER_API_KEY || '4c4cadb8c3f521a1f7292e5bb28d5b1f' },
 });
 
 request.interceptors.response.use(
