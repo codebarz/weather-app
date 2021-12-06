@@ -16,12 +16,17 @@ interface SliderItemProps {
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  padding: theme.spacing(1),
+  padding: '20px 5px',
   textAlign: 'center',
-  color: theme.palette.text.secondary,
   height: '200px',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
+  width: '100%',
+  border: 'none',
   margin: '10px',
+  borderRadius: '10px',
+  background: '#2c313f',
+  boxShadow: '0 0 24px rgba(0, 0, 0, 0.05)',
+  color: '#fff',
+  overflow: 'hidden',
 }));
 
 const SliderItem: React.FC<SliderItemProps> = ({
@@ -34,7 +39,7 @@ const SliderItem: React.FC<SliderItemProps> = ({
   index,
   active,
 }) => {
-  const className = classname('weather-slide-item', { "active-slide": active });
+  const className = classname('weather-slide-item', { 'active-slide': active });
   return (
     <Item
       className={className}
@@ -42,18 +47,20 @@ const SliderItem: React.FC<SliderItemProps> = ({
         onClick(index);
       }}
     >
-      <Grid container spacing={2} rowSpacing={{ sm: 5 }}>
-        <Grid item sm={12}>
-          <Typography variant="h6">{title}</Typography>
+      <div className="heartbeat"></div>
+      <div className="heartbeat-2"></div>
+      <Grid container columnSpacing={{ sm: 2 }} direction="column">
+        <Grid item sm={12} zIndex={10}>
+          <Typography variant="h5">{title}</Typography>
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={12}>
           <Typography variant="h6">
             {temperature}
             &deg;{unit === TemperatureUnits.Celcius ? 'C' : 'F'}
           </Typography>
         </Grid>
-        <Grid item sm={6}>
-          <img src={`http://openweathermap.org/img/w/${icon}.png`} alt="Weather" />
+        <Grid item sm={12}>
+          <img src={`http://openweathermap.org/img/w/${icon}.png`} className="icon" alt="Weather" />
         </Grid>
         <Grid item sm={12}>
           {date}

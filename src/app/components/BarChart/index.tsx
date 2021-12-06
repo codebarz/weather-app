@@ -16,12 +16,11 @@ interface BarchartProps {
 }
 
 const Barchart: React.FC<BarchartProps> = ({ data }) => {
-  console.log(data);
   return (
-    <Box sx={{ flexGrow: 1, width: '100%', height: '500px' }}>
+    <Box sx={{ flexGrow: 1, width: '100%', height: '300px' }}>
       <ResponsiveContainer>
         <BarChart
-          width={400}
+          width={500}
           height={300}
           data={data}
           margin={{

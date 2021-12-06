@@ -99,7 +99,7 @@ const Home: React.FC = () => {
               alignItems="center"
               sx={{ display: 'flex', justifyContent: 'flex-end' }}
             >
-              <Button variant="outlined" onClick={() => refetch()}>
+              <Button variant="contained" onClick={() => refetch()}>
                 Refresh
               </Button>
             </Grid>

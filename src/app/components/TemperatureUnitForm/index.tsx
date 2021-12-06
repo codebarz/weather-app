@@ -32,6 +32,7 @@ export const TemperatureUnitForm: React.FC<TemperatureUnitFormProps> = ({
             value={option.value}
             control={<Radio />}
             label={option.label}
+            className="radio-button"
           />
         ))}
       </RadioGroup>
