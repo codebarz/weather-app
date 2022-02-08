@@ -34,15 +34,55 @@ const Home: React.FC = () => {
     storage.set('unit', e.target.value);
   };
 
-  const handleCardSelect = useCallback((index: number) => {
-    setSelectedCard(index);
-    const weatherbarChartData: Array<BarChartData> = weathers[index]?.data.map((item) => ({
-      time: dayjs(item.dt_txt).format('ha'),
-      temperature: item.main.temp,
-    }));
+  const handleCardSelect = useCallback(
+    (index: number) => {
+      setSelectedCard(index);
+      const weatherbarChartData: Array<BarChartData> = weathers[index]?.data.map((item) => ({
+        time: dayjs(item.dt_txt).format('ha'),
+        temperature: item.main.temp,
+      }));
+
+      SetBarChartWeatherInfo(weatherbarChartData);
+    },
+    [weathers],
+  );
+
+  const handleNextEnd = (
+    currentItem: {
+      item: any;
+      index: number;
+    },
+    pageIndex: number,
+  ) => {
+    setSelectedCard(currentItem.index);
+    const weatherbarChartData: Array<BarChartData> = weathers[currentItem.index]?.data.map(
+      (item) => ({
+        time: dayjs(item.dt_txt).format('ha'),
+        temperature: item.main.temp,
+      }),
+    );
 
     SetBarChartWeatherInfo(weatherbarChartData);
-  }, [weathers]);
+  };
+
+  const handlePrevEnd = (
+    currentItem: {
+      item: any;
+      index: number;
+    },
+    pageIndex: number,
+  ) => {
+    setSelectedCard(currentItem.index);
+
+    const weatherbarChartData: Array<BarChartData> = weathers[currentItem.index]?.data.map(
+      (item) => ({
+        time: dayjs(item.dt_txt).format('ha'),
+        temperature: item.main.temp,
+      }),
+    );
+
+    SetBarChartWeatherInfo(weatherbarChartData);
+  };
 
   useEffect(() => {
     const storedUnit = storage.get('unit');
@@ -123,6 +163,8 @@ const Home: React.FC = () => {
           data={weathers}
           handleCardSelect={handleCardSelect}
           selectedCard={selectedCard}
+          onNextItem={handleNextEnd}
+          onPrevItem={handlePrevEnd}
         />
       </Container>
       {barChartWeatherInfo && (

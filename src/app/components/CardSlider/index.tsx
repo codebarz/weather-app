@@ -14,9 +14,17 @@ interface CardSliderProps {
   data: Array<WeatherInfo>;
   handleCardSelect: (index: number) => void;
   selectedCard?: number;
+  onNextItem: any;
+  onPrevItem: any;
 }
 
-const CardSlider: React.FC<CardSliderProps> = ({ data, handleCardSelect, selectedCard }) => {
+const CardSlider: React.FC<CardSliderProps> = ({
+  data,
+  handleCardSelect,
+  selectedCard,
+  onNextItem,
+  onPrevItem
+}) => {
   const storedUnit = storage.get('unit');
   const matches = useMediaQuery('(min-width: 600px) and (max-width: 900px)');
   const matchMobile = useMediaQuery('(max-width: 599px)');
@@ -30,6 +38,8 @@ const CardSlider: React.FC<CardSliderProps> = ({ data, handleCardSelect, selecte
         isRTL={false}
         className="weather-slide"
         itemsToShow={matches ? 2 : matchMobile ? 1 : 3}
+        onNextEnd={onNextItem}
+        onPrevEnd={onPrevItem}
       >
         {data?.map((data, index) => {
           const temperature = calculateAverageTemperature(data);
