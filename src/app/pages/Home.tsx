@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Box, Grid, Button, Container, Typography } from '@mui/material';
 import toast from 'react-hot-toast';
 import groupBy from 'lodash.groupby';
@@ -34,15 +34,15 @@ const Home: React.FC = () => {
     storage.set('unit', e.target.value);
   };
 
-  const handleCardSelect = (index: number) => {
+  const handleCardSelect = useCallback((index: number) => {
     setSelectedCard(index);
-    const weatherbarChartData: Array<BarChartData> = weathers[index].data.map((item) => ({
+    const weatherbarChartData: Array<BarChartData> = weathers[index]?.data.map((item) => ({
       time: dayjs(item.dt_txt).format('ha'),
       temperature: item.main.temp,
     }));
 
     SetBarChartWeatherInfo(weatherbarChartData);
-  };
+  }, [weathers]);
 
   useEffect(() => {
     const storedUnit = storage.get('unit');
@@ -77,6 +77,12 @@ const Home: React.FC = () => {
       setWeathers(weatherDays);
     }
   }, [data, isLoading]);
+
+  useEffect(() => {
+    if (weathers.length > 0) {
+      handleCardSelect(0);
+    }
+  }, [weathers, handleCardSelect]);
 
   return !data || isFetching ? (
     <LoadingIndicator data-testid="loading-indicator" />
