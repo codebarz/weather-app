@@ -8,6 +8,7 @@ import SliderItem from './SliderItem';
 
 import { calculateAverageTemperature } from '../../utils/temperature';
 import storage from '../../utils/storage';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface CardSliderProps {
   data: Array<WeatherInfo>;
@@ -17,22 +18,18 @@ interface CardSliderProps {
 
 const CardSlider: React.FC<CardSliderProps> = ({ data, handleCardSelect, selectedCard }) => {
   const storedUnit = storage.get('unit');
-
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 },
-  ];
+  const matches = useMediaQuery('(min-width: 600px) and (max-width: 900px)');
+  const matchMobile = useMediaQuery('(max-width: 599px)');
 
   return (
     <Box sx={{ flexGrow: 1, pt: 4, pb: 4 }} data-testid="weather-card-slider">
       <Carousel
-        breakPoints={breakPoints}
+        // breakPoints={breakPoints}
         pagination={false}
         showEmptySlots={false}
         isRTL={false}
         className="weather-slide"
+        itemsToShow={matches ? 2 : matchMobile ? 1 : 3}
       >
         {data?.map((data, index) => {
           const temperature = calculateAverageTemperature(data);
